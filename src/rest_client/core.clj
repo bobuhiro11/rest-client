@@ -2,6 +2,13 @@
   (:require [seesaw.core :as ss])
   (:require [clj-http.client :as client]))
 
+(def request-message (str
+                       ":url \"http://junk.clan.vc:80/form_test.php?a=b&c=d\"" \newline
+                       ":method :post" \newline
+                       ":headers {\"X-Api-Version\" \"2\"}" \newline
+                       ":form-params {:foo \"bar\"}" \newline
+                       ":content-type \"application/x-www-form-urlencoded\""))
+
 (defn request
   [s]
   (try
@@ -41,13 +48,7 @@
                        (ss/grid-panel
                          :columns 2
                          :items [(ss/text :id :txt
-                                          :text
-                                          (str
-                                            ":url \"http://junk.clan.vc:80/form_test.php?a=b&c=d\"" \newline
-                                            ":method :post" \newline
-                                            ":headers {\"X-Api-Version\" \"2\"}" \newline
-                                            ":form-params {:foo \"bar\"}" \newline
-                                            ":content-type \"application/x-www-form-urlencoded\"")
+                                          :text request-message
                                           :multi-line? true
                                           :rows 3)
                                  (ss/vertical-panel
